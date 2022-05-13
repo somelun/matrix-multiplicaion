@@ -11,10 +11,12 @@ public:
     matrix(uint16_t dimension);
     ~matrix();
 
+    void clean();
+
     uint16_t& operator()(uint16_t row, uint16_t column);
     uint16_t& operator()(uint16_t row, uint16_t column) const;
 
-    inline const uint16_t& get_dimension() const {
+    inline const uint16_t& size() const {
         return d;
     }
 
@@ -26,4 +28,7 @@ private:
     uint16_t d = 0;
     uint16_t** data = nullptr;
 };
+
+void stupid_multiplication(const matrix& a, const matrix& b, matrix& c);
+void optimized_multiplication(const matrix& a, const matrix& b, matrix& c);
 

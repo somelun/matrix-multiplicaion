@@ -1,12 +1,25 @@
-#include <stdio.h>
+#include <iostream>
 #include "matrix.h"
 
+constexpr uint16_t n = 3;
+
 int main(int argc, char* argv[]) {
-    matrix m(6);
-    m.fill_random();
+    matrix a(n);
+    a.fill_random();
 
-    std::cout << m << std::endl;
+    matrix b(n);
+    b.fill_random();
 
+    matrix c(n);
+
+    stupid_multiplication(a, b, c);
+    std::cout << c << std::endl;
+
+    c.clean();
+
+    optimized_multiplication(a, b, c);
+    std::cout << c << std::endl;
+    
     return 0;
 }
 

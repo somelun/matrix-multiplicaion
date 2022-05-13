@@ -5,7 +5,7 @@
 #include <iomanip>      // std::setw
 
 constexpr uint16_t MinNum = 1;
-constexpr uint16_t MaxNum = 99;
+constexpr uint16_t MaxNum = 9;
 
 matrix::matrix(uint16_t dimension) : d(dimension) {
     data = new uint16_t* [d];
@@ -19,6 +19,14 @@ matrix::~matrix() {
         delete [] data[i];
     }
     delete [] data;
+}
+
+void matrix::clean() {
+    for (size_t i = 0; i < d; i++) {
+        for (size_t j = 0; j < d; j++) {
+            data[i][j] = 0;
+        }
+    }
 }
 
 uint16_t& matrix::operator()(uint16_t row, uint16_t column) {
@@ -42,7 +50,7 @@ void matrix::fill_random() {
 }
 
 std::ostream& operator<<(std::ostream& s, const matrix& m) {
-    const uint16_t& d = m.get_dimension();
+    const uint16_t& d = m.size();
     for (size_t i = 0; i < d; i++) {
         for (size_t j = 0; j < d; j++) {
             s << std::setw(2) << m(i, j) << " ";
@@ -52,3 +60,28 @@ std::ostream& operator<<(std::ostream& s, const matrix& m) {
     return s;
 }
 
+void stupid_multiplication(const matrix& a, const matrix& b, matrix& c) {
+    // i assume they all same size
+    const uint16_t n = a.size();
+
+    for (size_t i = 0; i < n; ++i) {
+        for (size_t j = 0; j < n; ++j) {
+            for (size_t k = 0; k < n; ++k) {
+                c(i, j) += a(i, k) * b(k, j);
+            }
+        }
+    }
+}
+
+void optimized_multiplication(const matrix& a, const matrix& b, matrix& c) {
+    // i assume they all same size
+    const uint16_t n = a.size();
+
+    for (size_t i = 0; i < n; ++i) {
+        for (size_t k = 0; k < n; ++k) {
+            for (size_t j = 0; j < n; ++j) {
+                c(i, j) += a(i, k) * b(k, j);
+            }
+        }
+    }
+}
