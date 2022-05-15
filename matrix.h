@@ -14,7 +14,7 @@ public:
     void clean();
 
     uint16_t& operator()(uint16_t row, uint16_t column);
-    uint16_t& operator()(uint16_t row, uint16_t column) const;
+    const uint16_t& operator()(uint16_t row, uint16_t column) const;
 
     inline const uint16_t& size() const {
         return d;

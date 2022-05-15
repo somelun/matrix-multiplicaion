@@ -1,0 +1,4 @@
+[submodule "tinyclock"]
+	path = tinyclock
+	url = git@github.com:somelun/tinyclock.git
+	branch = master

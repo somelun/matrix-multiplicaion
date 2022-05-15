@@ -1,7 +1,9 @@
 #include <iostream>
 #include "matrix.h"
 
-constexpr uint16_t n = 3;
+#include "tinyclock/tinyclock.h"
+
+constexpr uint16_t n = 32;
 
 int main(int argc, char* argv[]) {
     matrix a(n);
@@ -12,14 +14,19 @@ int main(int argc, char* argv[]) {
 
     matrix c(n);
 
-    stupid_multiplication(a, b, c);
-    std::cout << c << std::endl;
+    {
+        TINYCLOCK_NAME("normal");
+        stupid_multiplication(a, b, c);
+    }
 
     c.clean();
 
-    optimized_multiplication(a, b, c);
-    std::cout << c << std::endl;
-    
+    {
+        TINYCLOCK_NAME("optimized");
+        optimized_multiplication(a, b, c);
+    }
+
     return 0;
 }
 
+// TODO: try to use advice from https://stackoverflow.com/questions/48527189/is-there-a-way-to-flush-the-entire-cpu-cache-related-to-a-program

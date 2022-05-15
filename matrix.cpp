@@ -32,7 +32,8 @@ void matrix::clean() {
 uint16_t& matrix::operator()(uint16_t row, uint16_t column) {
     return data[row][column];
 }
-uint16_t& matrix::operator()(uint16_t row, uint16_t column) const {
+
+const uint16_t& matrix::operator()(uint16_t row, uint16_t column) const {
     return data[row][column];
 }
 
@@ -85,3 +86,4 @@ void optimized_multiplication(const matrix& a, const matrix& b, matrix& c) {
         }
     }
 }
+
