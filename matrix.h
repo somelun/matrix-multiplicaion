@@ -31,4 +31,5 @@ private:
 
 void stupid_multiplication(const matrix& a, const matrix& b, matrix& c);
 void optimized_multiplication(const matrix& a, const matrix& b, matrix& c);
+void parallel_multiplication(const matrix& a, const matrix& b, matrix& c);
 

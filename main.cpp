@@ -3,7 +3,7 @@
 
 #include "tinyclock/tinyclock.h"
 
-constexpr uint16_t n = 32;
+constexpr uint16_t n = 2048;
 
 int main(int argc, char* argv[]) {
     matrix a(n);
@@ -18,15 +18,20 @@ int main(int argc, char* argv[]) {
         TINYCLOCK_NAME("normal");
         stupid_multiplication(a, b, c);
     }
-
     c.clean();
-
+    
     {
         TINYCLOCK_NAME("optimized");
         optimized_multiplication(a, b, c);
     }
+    c.clean();
+
+    {
+        TINYCLOCK_NAME("parallel");
+        parallel_multiplication(a, b, c);
+    }
+    c.clean();
 
     return 0;
 }
 
-// TODO: try to use advice from https://stackoverflow.com/questions/48527189/is-there-a-way-to-flush-the-entire-cpu-cache-related-to-a-program

@@ -4,6 +4,8 @@
 #include <iostream>
 #include <iomanip>      // std::setw
 
+// #include <omp.h>
+
 constexpr uint16_t MinNum = 1;
 constexpr uint16_t MaxNum = 9;
 
@@ -81,6 +83,22 @@ void optimized_multiplication(const matrix& a, const matrix& b, matrix& c) {
     for (size_t i = 0; i < n; ++i) {
         for (size_t k = 0; k < n; ++k) {
             for (size_t j = 0; j < n; ++j) {
+                c(i, j) += a(i, k) * b(k, j);
+            }
+        }
+    }
+}
+
+void parallel_multiplication(const matrix& a, const matrix& b, matrix& c) {
+    // i assume they all same size
+    const uint16_t n = a.size();
+
+    size_t i, j, k;
+
+    #pragma omp parallel for private(i,j,k) shared(a,b,c)
+    for (i = 0; i < n; ++i) {
+        for (k = 0; k < n; ++k) {
+            for (j = 0; j < n; ++j) {
                 c(i, j) += a(i, k) * b(k, j);
             }
         }
