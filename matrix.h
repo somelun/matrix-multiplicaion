@@ -29,7 +29,10 @@ private:
     uint16_t** data = nullptr;
 };
 
-void stupid_multiplication(const matrix& a, const matrix& b, matrix& c);
-void optimized_multiplication(const matrix& a, const matrix& b, matrix& c);
-void parallel_multiplication(const matrix& a, const matrix& b, matrix& c);
+void transpose(const matrix& a, matrix& m);
+
+void simple_mult(const matrix& a, const matrix& b, matrix& c);
+void transposed_mult(const matrix& a, const matrix& b, matrix& c);
+void loopswap_mult(const matrix& a, const matrix& b, matrix& c);
+void parallel_mult(const matrix& a, const matrix& b, matrix& c);
 

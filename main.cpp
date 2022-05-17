@@ -3,7 +3,7 @@
 
 #include "tinyclock/tinyclock.h"
 
-constexpr uint16_t n = 2048;
+constexpr uint16_t n = 4;
 
 int main(int argc, char* argv[]) {
     matrix a(n);
@@ -15,22 +15,31 @@ int main(int argc, char* argv[]) {
     matrix c(n);
 
     {
-        TINYCLOCK_NAME("normal");
-        stupid_multiplication(a, b, c);
+        TINYCLOCK_NAME("simple");
+        simple_mult(a, b, c);
     }
-    c.clean();
-    
-    {
-        TINYCLOCK_NAME("optimized");
-        optimized_multiplication(a, b, c);
-    }
+    // std::cout << c << std::endl;
     c.clean();
 
+    // {
+    //     TINYCLOCK_NAME("transposed");
+    //     transposed_mult(a, b, c);
+    // }
+    // std::cout << c << std::endl;
+    // c.clean();
+
     {
-        TINYCLOCK_NAME("parallel");
-        parallel_multiplication(a, b, c);
+        TINYCLOCK_NAME("loopswap");
+        loopswap_mult(a, b, c);
     }
+    // std::cout << c << std::endl;
     c.clean();
+
+    // {
+    //     TINYCLOCK_NAME("parallel");
+    //     parallel_mult(a, b, c);
+    // }
+    // c.clean();
 
     return 0;
 }
