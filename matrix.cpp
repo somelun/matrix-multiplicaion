@@ -10,33 +10,48 @@ constexpr uint16_t MinNum = 1;
 constexpr uint16_t MaxNum = 9;
 
 matrix::matrix(uint16_t dimension) : d(dimension) {
+#ifdef CONTIGOUS
+        data = new uint16_t[d * d];
+#else
     data = new uint16_t* [d];
     for (uint16_t i = 0; i < d; ++i) {
         data[i] = new uint16_t[d];
     }
+#endif
 }
 
 matrix::~matrix() {
+#ifdef CONTIGOUS
+#else
     for (uint16_t i = 0; i < d; ++i) {
         delete [] data[i];
     }
+#endif
     delete [] data;
 }
 
 void matrix::clean() {
     for (size_t i = 0; i < d; ++i) {
         for (size_t j = 0; j < d; ++j) {
-            data[i][j] = 0;
+            operator()(i, j) = 0;
         }
     }
 }
 
 uint16_t& matrix::operator()(uint16_t row, uint16_t column) {
+#ifdef CONTIGOUS
+    return data[d * row + column];
+#else
     return data[row][column];
+#endif
 }
 
 const uint16_t& matrix::operator()(uint16_t row, uint16_t column) const {
+#ifdef CONTIGOUS
+    return data[d * row + column];
+#else
     return data[row][column];
+#endif
 }
 
 void matrix::fill_random() {
@@ -47,8 +62,17 @@ void matrix::fill_random() {
 
     for (size_t i = 0; i < d; i++) {
         for (size_t j = 0; j < d; j++) {
-            data[i][j] = distr(eng);
+            operator()(i, j) = distr(eng);
         }
+    }
+}
+
+void matrix::print_row_addresses() const {
+    for (size_t i = 0; i < d; ++i) {
+        for (size_t j = 0; j < d; ++j) {
+            std::cout << &operator()(i, j) << " ";
+        }
+        std::cout << "\n";
     }
 }
 

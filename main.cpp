@@ -3,7 +3,7 @@
 
 #include "tinyclock/tinyclock.h"
 
-constexpr uint16_t n = 4;
+constexpr uint16_t n = 8;
 
 int main(int argc, char* argv[]) {
     matrix a(n);
@@ -14,12 +14,15 @@ int main(int argc, char* argv[]) {
 
     matrix c(n);
 
-    {
-        TINYCLOCK_NAME("simple");
-        simple_mult(a, b, c);
-    }
-    // std::cout << c << std::endl;
-    c.clean();
+    std::cout << a << std::endl;
+    a.print_row_addresses();
+
+    // {
+    //     TINYCLOCK_NAME("simple");
+    //     simple_mult(a, b, c);
+    // }
+    // // std::cout << c << std::endl;
+    // c.clean();
 
     // {
     //     TINYCLOCK_NAME("transposed");
