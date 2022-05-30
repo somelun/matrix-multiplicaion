@@ -5,7 +5,7 @@
 
 constexpr uint16_t default_dimension = 4096;
 
-#define CONTIGOUS
+// #define CONTIGOUS
 
 struct matrix {
 public:
@@ -19,11 +19,7 @@ public:
     const uint16_t& operator()(uint16_t row, uint16_t column) const;
 
     inline const uint16_t size() const {
-#ifdef CONTIGOUS
-        return d * d;
-#else
         return d;
-#endif
     }
 
     void fill_random();
